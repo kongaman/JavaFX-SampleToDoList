@@ -39,4 +39,10 @@ public class Controller {
         todoListView.getItems().setAll(todoItems);
         todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
+
+    @FXML
+    public void handleClickListView() {
+        ToDoItem item = (ToDoItem) todoListView.getSelectionModel().getSelectedItem();
+        System.out.println("The selected item is: " + item);
+    }
 }
