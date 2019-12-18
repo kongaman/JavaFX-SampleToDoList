@@ -2,6 +2,7 @@ package ck.train.toDoList;
 
 import ck.train.toDoList.datamodel.ToDoItem;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
@@ -22,6 +23,8 @@ public class Controller {
     private ListView<ToDoItem> todoListView;
     @FXML
     private TextArea itemDetailsTextArea;
+    @FXML
+    private Label deadlineLabel;
 
     public void initialize() {
         ToDoItem item1 = new ToDoItem("Mail birthday card", "Buy a 30th birthday card for John",
@@ -53,10 +56,8 @@ public class Controller {
     public void handleClickListView() {
         ToDoItem item = todoListView.getSelectionModel().getSelectedItem();
         System.out.println("The selected item is: " + item);
-        StringBuilder sb = new StringBuilder(item.getDetails());
-        sb.append("\n\n\n\n\nDue: ");
-        sb.append(item.getDeadline().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+        itemDetailsTextArea.setText(item.getDetails());
+        deadlineLabel.setText(item.getDeadline().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
                 .withLocale(Locale.GERMAN)));
-        itemDetailsTextArea.setText(sb.toString());
     }
 }
