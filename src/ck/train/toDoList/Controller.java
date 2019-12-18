@@ -9,8 +9,10 @@ import javafx.scene.control.TextArea;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Controller {
 
@@ -32,6 +34,8 @@ public class Controller {
                 LocalDate.of(2019, Month.DECEMBER,12));
         ToDoItem item5 = new ToDoItem("Pickup dry cleaning", "Clothes should be ready by Friday",
                 LocalDate.of(2019, Month.DECEMBER,20));
+        ToDoItem item6 = new ToDoItem("Schnuggi berschde", "Von vorne, von hinten...",
+                LocalDate.of(2019, Month.DECEMBER,19));
 
         todoItems = new ArrayList<ToDoItem>();
         todoItems.add(item1);
@@ -39,6 +43,7 @@ public class Controller {
         todoItems.add(item3);
         todoItems.add(item4);
         todoItems.add(item5);
+        todoItems.add(item6);
 
         todoListView.getItems().setAll(todoItems);
         todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -49,8 +54,9 @@ public class Controller {
         ToDoItem item = todoListView.getSelectionModel().getSelectedItem();
         System.out.println("The selected item is: " + item);
         StringBuilder sb = new StringBuilder(item.getDetails());
-        sb.append("\n\n\n\n");
-        sb.append(item.getDeadline().toString());
-        itemDetailsTextArea.setText("Due: " + sb.toString());
+        sb.append("\n\n\n\n\nDue: ");
+        sb.append(item.getDeadline().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+                .withLocale(Locale.GERMAN)));
+        itemDetailsTextArea.setText(sb.toString());
     }
 }
