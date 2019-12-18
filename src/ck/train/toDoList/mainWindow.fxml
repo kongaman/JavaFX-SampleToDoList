@@ -17,15 +17,15 @@
     </left>
 
     <center>
-        <VBox>
-            <TextArea fx:id="itemDetailsTextArea"/>
+        <VBox style="-fx-background-color: white">
+            <TextArea fx:id="itemDetailsTextArea" VBox.vgrow="ALWAYS"/>
             <HBox>
-                <Label text="Termin: ">
+                <Label text="Fällig am: " style="-fx-background-color: white">
                     <font>
                         <Font name="Times New Roman bold" size="20"/>
                     </font>
                 </Label>
-                <Label fx:id="deadlineLabel">
+                <Label fx:id="deadlineLabel" style="-fx-background-color: white">
                     <font>
                         <Font name="Times New Roman bold" size="20"/>
                     </font>
