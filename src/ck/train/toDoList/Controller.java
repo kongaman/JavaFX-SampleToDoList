@@ -1,6 +1,8 @@
 package ck.train.toDoList;
 
 import ck.train.toDoList.datamodel.ToDoItem;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -48,8 +50,21 @@ public class Controller {
         todoItems.add(item5);
         todoItems.add(item6);
 
+        todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ToDoItem>() {
+            @Override
+            public void changed(ObservableValue<? extends ToDoItem> observableValue, ToDoItem oldValue, ToDoItem newValue) {
+                if(newValue != null) {
+                    ToDoItem item = todoListView.getSelectionModel().getSelectedItem();
+                    itemDetailsTextArea.setText(item.getDetails());
+                    deadlineLabel.setText(item.getDeadline().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+                            .withLocale(Locale.GERMAN)));
+                }
+            }
+        });
+
         todoListView.getItems().setAll(todoItems);
         todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        todoListView.getSelectionModel().selectFirst();
     }
 
     @FXML

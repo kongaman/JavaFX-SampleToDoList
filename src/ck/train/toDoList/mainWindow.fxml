@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <BorderPane fx:controller="ck.train.toDoList.Controller" xmlns:fx="http://javafx.com/fxml">
     <left>
-        <ListView fx:id="todoListView" onMouseClicked="#handleClickListView">
+        <ListView fx:id="todoListView">
 
         </ListView>
     </left>
