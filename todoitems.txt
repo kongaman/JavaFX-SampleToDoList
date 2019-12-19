@@ -6,3 +6,4 @@ Pickup dry cleaning	Clothes should be ready by Friday	2019-12-20
 Schnuggi berschde	Von vorne, von hinten...	2019-12-19
 test	abc	2019-12-26
 blubb	bla	2020-01-03
+Databinding test	is it really sufficient to change the List to ObservableList?	2019-12-19

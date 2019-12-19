@@ -1,6 +1,7 @@
 package ck.train.toDoList.datamodel;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -10,14 +11,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 //Singleton (private constructor + getInstance)
 public class ToDoData {
     private static ToDoData instance = new ToDoData();
     private static String todoFilename = "todoitems.txt";
 
-    private List<ToDoItem> todoItems;
+    private ObservableList<ToDoItem> todoItems;
     private DateTimeFormatter formaatter;
 
     public static ToDoData getInstance() {
@@ -28,7 +28,7 @@ public class ToDoData {
         formaatter = DateTimeFormatter.ISO_DATE;
     }
 
-    public List<ToDoItem> getTodoItems() {
+    public ObservableList<ToDoItem> getTodoItems() {
         return todoItems;
     }
 
