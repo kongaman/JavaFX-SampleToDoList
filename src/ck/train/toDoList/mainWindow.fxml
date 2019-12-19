@@ -28,7 +28,7 @@
 
     <center>
         <VBox style="-fx-background-color: white">
-            <TextArea fx:id="itemDetailsTextArea" VBox.vgrow="ALWAYS"/>
+            <TextArea fx:id="itemDetailsTextArea" VBox.vgrow="ALWAYS" wrapText="true"/>
             <HBox>
                 <Label text="Fällig am: " style="-fx-background-color: white">
                     <font>
