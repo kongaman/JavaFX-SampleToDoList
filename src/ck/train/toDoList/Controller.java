@@ -1,5 +1,6 @@
 package ck.train.toDoList;
 
+import ck.train.toDoList.datamodel.ToDoData;
 import ck.train.toDoList.datamodel.ToDoItem;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -49,6 +50,8 @@ public class Controller {
         todoItems.add(item4);
         todoItems.add(item5);
         todoItems.add(item6);
+
+        ToDoData.getInstance().setTodoItems(todoItems);
 
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ToDoItem>() {
             @Override
