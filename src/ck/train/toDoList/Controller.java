@@ -4,6 +4,7 @@ import ck.train.toDoList.datamodel.ToDoData;
 import ck.train.toDoList.datamodel.ToDoItem;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +25,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class Controller {
 
@@ -39,6 +41,11 @@ public class Controller {
     private BorderPane mainBorderPane;
     @FXML
     private  ContextMenu listContextMenu;
+    @FXML
+    private  ToggleButton filterToggleButton;
+
+    private FilteredList<ToDoItem> filteredList;
+
 
     public void initialize() {
 
@@ -53,7 +60,6 @@ public class Controller {
         });
         listContextMenu.getItems().addAll(deleteMenuItem);
 
-
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<ToDoItem>() {
             @Override
             public void changed(ObservableValue<? extends ToDoItem> observableValue, ToDoItem oldValue, ToDoItem newValue) {
@@ -66,7 +72,14 @@ public class Controller {
             }
         });
 
-        SortedList<ToDoItem> sortedList = new SortedList<ToDoItem>(ToDoData.getInstance().getTodoItems(),
+        filteredList = new FilteredList<ToDoItem>(ToDoData.getInstance().getTodoItems(), new Predicate<ToDoItem>() {
+            @Override
+            public boolean test(ToDoItem item) {
+                return true;
+            }
+        });
+
+        SortedList<ToDoItem> sortedList = new SortedList<ToDoItem>(filteredList,
                 new Comparator<ToDoItem>() {
             @Override
             public int compare(ToDoItem o1, ToDoItem o2) {
@@ -74,7 +87,7 @@ public class Controller {
             }
         });
 
-//        todoListView.setItems(ToDoData.getInstance().getTodoItems());
+//        todoListView.setItems(ToDoData.getInstance().getTodoItems()); //Items now coming from sorted List
         todoListView.setItems(sortedList);
         todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         todoListView.getSelectionModel().selectFirst();
@@ -165,6 +178,25 @@ public class Controller {
 
         if(result.isPresent() && (result.get() == ButtonType.OK)) {
             ToDoData.getInstance().deleteToDoItem(item);
+        }
+    }
+
+    @FXML
+    public void handleFilterButton() {
+        if(filterToggleButton.isSelected()) {
+            filteredList.setPredicate(new Predicate<ToDoItem>() {
+                @Override
+                public boolean test(ToDoItem item) {
+                    return item.getDeadline().equals(LocalDate.now());
+                }
+            });
+        } else {
+            filteredList.setPredicate(new Predicate<ToDoItem>() {
+                @Override
+                public boolean test(ToDoItem item) {
+                    return true;
+                }
+            });
         }
     }
 }
