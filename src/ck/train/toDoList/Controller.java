@@ -2,6 +2,7 @@ package ck.train.toDoList;
 
 import ck.train.toDoList.datamodel.ToDoData;
 import ck.train.toDoList.datamodel.ToDoItem;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
@@ -209,5 +210,10 @@ public class Controller {
             filteredList.setPredicate(wantAllItems);
             todoListView.getSelectionModel().select(selecteditem);
         }
+    }
+
+    @FXML
+    public void handleExit() {
+        Platform.exit();
     }
 }
