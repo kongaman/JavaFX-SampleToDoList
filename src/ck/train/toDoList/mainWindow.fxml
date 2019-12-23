@@ -27,26 +27,26 @@
                     </items>
                 </Menu>
             </MenuBar>
+            <ToolBar>
+                <HBox>
+                    <Button onAction="#showNewItemDialog">
+                        <tooltip>
+                            <Tooltip text="Add a new item"/>
+                        </tooltip>
+                        <graphic>
+                            <ImageView>
+                                <Image url="@/res/toolbarButtonGraphics/general/New24.gif"/>
+                            </ImageView>
+                        </graphic>
+                    </Button>
+                    <ToggleButton fx:id="filterToggleButton" text="Today's Items" onAction="#handleFilterButton">
+                        <tooltip>
+                            <Tooltip text="Button Down: Todays items only, Button Up: All Items"/>
+                        </tooltip>
+                    </ToggleButton>
+                </HBox>
+            </ToolBar>
         </VBox>
-        <ToolBar>
-            <HBox>
-                <Button onAction="#showNewItemDialog">
-                    <tooltip>
-                        <Tooltip text="Add a new item"/>
-                    </tooltip>
-                    <graphic>
-                        <ImageView>
-                            <Image url="@/res/toolbarButtonGraphics/general/New24.gif"/>
-                        </ImageView>
-                    </graphic>
-                </Button>
-                <ToggleButton fx:id="filterToggleButton" text="Today's Items" onAction="#handleFilterButton">
-                    <tooltip>
-                        <Tooltip text="Button Down: Todays items only, Button Up: All Items"/>
-                    </tooltip>
-                </ToggleButton>
-            </HBox>
-        </ToolBar>
     </top>
     <left>
         <ListView fx:id="todoListView" onKeyPressed="#handleKeyPressed">
