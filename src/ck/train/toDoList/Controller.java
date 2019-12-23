@@ -45,6 +45,8 @@ public class Controller {
     private  ToggleButton filterToggleButton;
 
     private FilteredList<ToDoItem> filteredList;
+    private Predicate<ToDoItem> wantAllItems;
+    private Predicate<ToDoItem> wantTodaysItems;
 
 
     public void initialize() {
@@ -72,12 +74,21 @@ public class Controller {
             }
         });
 
-        filteredList = new FilteredList<ToDoItem>(ToDoData.getInstance().getTodoItems(), new Predicate<ToDoItem>() {
+        wantAllItems = new Predicate<ToDoItem>() {
             @Override
             public boolean test(ToDoItem item) {
                 return true;
             }
-        });
+        };
+
+        wantTodaysItems = new Predicate<ToDoItem>() {
+            @Override
+            public boolean test(ToDoItem item) {
+                return item.getDeadline().equals(LocalDate.now());
+            }
+        };
+
+        filteredList = new FilteredList<ToDoItem>(ToDoData.getInstance().getTodoItems(), wantAllItems);
 
         SortedList<ToDoItem> sortedList = new SortedList<ToDoItem>(filteredList,
                 new Comparator<ToDoItem>() {
@@ -184,19 +195,9 @@ public class Controller {
     @FXML
     public void handleFilterButton() {
         if(filterToggleButton.isSelected()) {
-            filteredList.setPredicate(new Predicate<ToDoItem>() {
-                @Override
-                public boolean test(ToDoItem item) {
-                    return item.getDeadline().equals(LocalDate.now());
-                }
-            });
+            filteredList.setPredicate(wantTodaysItems);
         } else {
-            filteredList.setPredicate(new Predicate<ToDoItem>() {
-                @Override
-                public boolean test(ToDoItem item) {
-                    return true;
-                }
-            });
+            filteredList.setPredicate(wantAllItems);
         }
     }
 }
