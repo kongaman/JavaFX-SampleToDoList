@@ -194,10 +194,20 @@ public class Controller {
 
     @FXML
     public void handleFilterButton() {
+        ToDoItem selecteditem = todoListView.getSelectionModel().getSelectedItem();
         if(filterToggleButton.isSelected()) {
             filteredList.setPredicate(wantTodaysItems);
+            if(filteredList.isEmpty()){
+                itemDetailsTextArea.clear();
+                deadlineLabel.setText("");
+            } else if(filteredList.contains(selecteditem)){
+                todoListView.getSelectionModel().select(selecteditem);
+            } else {
+                todoListView.getSelectionModel().selectFirst();
+            }
         } else {
             filteredList.setPredicate(wantAllItems);
+            todoListView.getSelectionModel().select(selecteditem);
         }
     }
 }
